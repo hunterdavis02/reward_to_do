@@ -1,0 +1,71 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Theme tokens: everything colored in the app reads from these variables.
+   Add a new theme by adding another [data-theme="..."] block with the same keys. */
+:root,
+:root[data-theme='dark'] {
+  --color-bg-start: #0f0b1e;
+  --color-bg-end: #150f28;
+  --color-surface: #1c1730;
+  --color-surface-alt: #241d3d;
+  --color-border: #322a52;
+  --color-text: #f1edff;
+  --color-text-muted: #a79fc4;
+  --color-accent: #9b83ff;
+  --color-accent-secondary: #4fd1c5;
+  --color-accent-contrast: #14102a;
+  --color-danger: #ff8fa3;
+  --shadow-color: rgba(0, 0, 0, 0.45);
+}
+
+:root[data-theme='light'] {
+  --color-bg-start: #f6f2ff;
+  --color-bg-end: #fefcff;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f7f3ff;
+  --color-border: #e6e1f5;
+  --color-text: #221a35;
+  --color-text-muted: #5f5870;
+  --color-accent: #7c5bff;
+  --color-accent-secondary: #4fd1c5;
+  --color-accent-contrast: #ffffff;
+  --color-danger: #e8517a;
+  --shadow-color: rgba(76, 48, 123, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  color: var(--color-text);
+  background: linear-gradient(135deg, var(--color-bg-start) 0%, var(--color-bg-end) 100%);
+  transition: background 180ms ease, color 180ms ease;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1.1;
+  margin: 0 0 0.75rem;
+  color: var(--color-text);
+}
