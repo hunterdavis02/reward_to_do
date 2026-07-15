@@ -41,6 +41,28 @@
   --shadow-color: rgba(76, 48, 123, 0.08);
 }
 
+:root {
+  --color-rewards-start: #ef4444;
+  --color-rewards-end: #f97316;
+  --color-goals-start: #7e22ce;
+  --color-goals-end: #7b0436;
+}
+
+/* Per-widget color identity: override the accent tokens within a themed
+   page so existing accent-based styles (buttons, badges, progress bars)
+   automatically pick up that widget's gradient. */
+.theme-rewards {
+  --color-accent: var(--color-rewards-start);
+  --color-accent-secondary: var(--color-rewards-end);
+  --color-accent-contrast: #fff;
+}
+
+.theme-goals {
+  --color-accent: var(--color-goals-start);
+  --color-accent-secondary: var(--color-goals-end);
+  --color-accent-contrast: #fff;
+}
+
 * {
   box-sizing: border-box;
 }

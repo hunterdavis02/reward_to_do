@@ -13,17 +13,26 @@ function WidgetsPage() {
         <Link to="/widgets/reward-to-do" className="widget-card primary">
           <div>
             <p className="widget-label">Main widget</p>
-            <h2>Reward To-Do</h2>
+            <h2>To-Do</h2>
             <p>Track tasks, earn points, and keep momentum going.</p>
           </div>
           <span className="widget-arrow">Open →</span>
         </Link>
 
-        <Link to="/widgets/spend-points" className="widget-card">
+        <Link to="/widgets/spend-points" className="widget-card rewards">
           <div>
             <p className="widget-label">Points shop</p>
             <h2>Spend Points</h2>
             <p>Set up rewards and redeem your points on them.</p>
+          </div>
+          <span className="widget-arrow">Open →</span>
+        </Link>
+
+        <Link to="/widgets/goals" className="widget-card goals">
+          <div>
+            <p className="widget-label">Categories</p>
+            <h2>Goals</h2>
+            <p>Set overarching goals to organize your tasks around.</p>
           </div>
           <span className="widget-arrow">Open →</span>
         </Link>

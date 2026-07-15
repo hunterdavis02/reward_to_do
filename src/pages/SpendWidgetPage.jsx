@@ -87,7 +87,7 @@ function SpendWidgetPage() {
   }
 
   return (
-    <main className="app-shell">
+    <main className="app-shell theme-rewards">
       <Link to="/widgets" className="back-link">
         ← Back to widgets
       </Link>

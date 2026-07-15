@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
 import NavBar from './components/NavBar'
-import HomePage from './pages/HomePage'
 import WidgetsPage from './pages/WidgetsPage'
 import RewardWidgetPage from './pages/RewardWidgetPage'
 import SpendWidgetPage from './pages/SpendWidgetPage'
+import GoalWidgetPage from './pages/GoalWidgetPage'
 import LoginPage from './pages/LoginPage'
 import { useAuth } from './auth/useAuth'
 import './App.css'
@@ -18,10 +18,11 @@ function App() {
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<WidgetsPage />} />
         <Route path="/widgets" element={<WidgetsPage />} />
         <Route path="/widgets/reward-to-do" element={<RewardWidgetPage />} />
         <Route path="/widgets/spend-points" element={<SpendWidgetPage />} />
+        <Route path="/widgets/goals" element={<GoalWidgetPage />} />
       </Routes>
     </>
   )

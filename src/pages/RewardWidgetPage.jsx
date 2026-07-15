@@ -7,10 +7,14 @@ const DEFAULT_TASK_REWARD = 5
 
 function RewardWidgetPage() {
   const { rows: tasks, loading, insertRow, updateRow, removeRow } = useOwnedTable('tasks')
+  const { rows: goals } = useOwnedTable('goals')
   const [draft, setDraft] = useState('')
   const [draftReward, setDraftReward] = useState(DEFAULT_TASK_REWARD)
+  const [draftGoalId, setDraftGoalId] = useState('')
   const [expandedIds, setExpandedIds] = useState(() => new Set())
   const { balance, earn, spend } = useBalance()
+
+  const goalTitle = (goalId) => goals.find((goal) => goal.id === goalId)?.title
 
   const completedCount = useMemo(
     () => tasks.filter((task) => task.completed).length,
@@ -32,9 +36,11 @@ function RewardWidgetPage() {
       title,
       completed: false,
       reward: Math.max(0, Number(draftReward) || 0),
+      goal_id: draftGoalId ? Number(draftGoalId) : null,
     })
     setDraft('')
     setDraftReward(DEFAULT_TASK_REWARD)
+    setDraftGoalId('')
   }
 
   const setTaskCompleted = (id, completed) => {
@@ -91,6 +97,10 @@ function RewardWidgetPage() {
     updateRow(id, { reward })
   }
 
+  const updateGoal = (id, value) => {
+    updateRow(id, { goal_id: value ? Number(value) : null })
+  }
+
   return (
     <main className="app-shell">
       <Link to="/widgets" className="back-link">
@@ -99,7 +109,7 @@ function RewardWidgetPage() {
 
       <section className="hero-card compact">
         <div>
-          <p className="eyebrow">Reward widget</p>
+          <p className="eyebrow">To-Do widget</p>
           <h1>Keep your day moving and earn points as you go.</h1>
           <p className="subtitle">
             Add simple tasks, complete them, and watch your reward balance grow.
@@ -144,6 +154,19 @@ function RewardWidgetPage() {
             onChange={(event) => setDraftReward(event.target.value)}
             aria-label="Points for new task"
           />
+          <select
+            className="task-form-goal"
+            value={draftGoalId}
+            onChange={(event) => setDraftGoalId(event.target.value)}
+            aria-label="Goal for new task"
+          >
+            <option value="">No goal</option>
+            {goals.map((goal) => (
+              <option key={goal.id} value={goal.id}>
+                {goal.title}
+              </option>
+            ))}
+          </select>
           <button type="submit">Add</button>
         </form>
 
@@ -169,7 +192,12 @@ function RewardWidgetPage() {
                       }
                     }}
                   >
-                    <span className="task-title">{task.title}</span>
+                    <div className="task-title-group">
+                      <span className="task-title">{task.title}</span>
+                      {task.goal_id && (
+                        <span className="task-goal-tag">{goalTitle(task.goal_id)}</span>
+                      )}
+                    </div>
 
                     <div className="task-summary-controls">
                       {task.completed && (
@@ -225,6 +253,21 @@ function RewardWidgetPage() {
                           onChange={(event) => updateReward(task.id, event.target.value)}
                           aria-label={`Points for ${task.title}`}
                         />
+                      </label>
+                      <label className="task-detail-field">
+                        <span>Goal</span>
+                        <select
+                          value={task.goal_id ?? ''}
+                          onChange={(event) => updateGoal(task.id, event.target.value)}
+                          aria-label={`Goal for ${task.title}`}
+                        >
+                          <option value="">No goal</option>
+                          {goals.map((goal) => (
+                            <option key={goal.id} value={goal.id}>
+                              {goal.title}
+                            </option>
+                          ))}
+                        </select>
                       </label>
                       <button
                         type="button"
