@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useBalance } from '../balance/useBalance'
 import { useOwnedTable } from '../lib/useOwnedTable'
+import EditableField from '../components/EditableField'
 
 const DEFAULT_TASK_REWARD = 5
 
@@ -238,19 +239,19 @@ function RewardWidgetPage() {
                     <div className="task-details">
                       <label className="task-detail-field">
                         <span>Title</span>
-                        <input
+                        <EditableField
                           value={task.title}
-                          onChange={(event) => renameTask(task.id, event.target.value)}
+                          onCommit={(value) => renameTask(task.id, value)}
                           aria-label={`Rename ${task.title}`}
                         />
                       </label>
                       <label className="task-detail-field task-detail-field-reward">
                         <span>Points</span>
-                        <input
+                        <EditableField
                           type="number"
                           min="0"
                           value={task.reward}
-                          onChange={(event) => updateReward(task.id, event.target.value)}
+                          onCommit={(value) => updateReward(task.id, value)}
                           aria-label={`Points for ${task.title}`}
                         />
                       </label>

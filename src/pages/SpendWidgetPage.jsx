@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useBalance } from '../balance/useBalance'
 import { useOwnedTable } from '../lib/useOwnedTable'
+import EditableField from '../components/EditableField'
 
 const DEFAULT_ITEM_COST = 5
 
@@ -200,19 +201,19 @@ function SpendWidgetPage() {
                     <div className="task-details">
                       <label className="task-detail-field">
                         <span>Title</span>
-                        <input
+                        <EditableField
                           value={item.title}
-                          onChange={(event) => renameItem(item.id, event.target.value)}
+                          onCommit={(value) => renameItem(item.id, value)}
                           aria-label={`Rename ${item.title}`}
                         />
                       </label>
                       <label className="task-detail-field task-detail-field-reward">
                         <span>Cost</span>
-                        <input
+                        <EditableField
                           type="number"
                           min="0"
                           value={item.cost}
-                          onChange={(event) => updateCost(item.id, event.target.value)}
+                          onCommit={(value) => updateCost(item.id, value)}
                           aria-label={`Cost for ${item.title}`}
                         />
                       </label>

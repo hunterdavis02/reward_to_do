@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useBalance } from '../balance/useBalance'
 import { useOwnedTable } from '../lib/useOwnedTable'
+import EditableField from '../components/EditableField'
 
 function GoalWidgetPage() {
   const { rows: goals, loading, insertRow, updateRow, removeRow } = useOwnedTable('goals')
@@ -190,9 +191,9 @@ function GoalWidgetPage() {
                     <div className="task-details">
                       <label className="task-detail-field">
                         <span>Title</span>
-                        <input
+                        <EditableField
                           value={goal.title}
-                          onChange={(event) => renameGoal(goal.id, event.target.value)}
+                          onCommit={(value) => renameGoal(goal.id, value)}
                           aria-label={`Rename ${goal.title}`}
                         />
                       </label>
