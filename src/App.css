@@ -484,6 +484,16 @@
   cursor: pointer;
 }
 
+.archive-task-button {
+  border: 1px solid var(--color-accent);
+  background: transparent;
+  color: var(--color-accent);
+  border-radius: 999px;
+  padding: 0.7rem 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .reward-badge {
   background: var(--color-surface);
   color: var(--color-accent);

@@ -79,6 +79,10 @@ function GoalWidgetPage() {
     updateTask(id, { completed: false, completed_at: null })
   }
 
+  const archiveTask = (id) => {
+    updateTask(id, { archived: true, archived_at: new Date().toISOString() })
+  }
+
   const deleteTask = (id) => {
     removeTask(id)
   }
@@ -133,7 +137,7 @@ function GoalWidgetPage() {
           <ul className="task-list">
             {goals.map((goal) => {
               const isExpanded = expandedIds.has(goal.id)
-              const goalTasks = tasks.filter((task) => task.goal_id === goal.id)
+              const goalTasks = tasks.filter((task) => task.goal_id === goal.id && !task.archived)
 
               return (
                 <li key={goal.id} className={`task-item ${goal.completed ? 'done' : ''}`}>
@@ -253,6 +257,16 @@ function GoalWidgetPage() {
                                   </select>
 
                                   <span className="reward-badge">{task.reward} pts</span>
+
+                                  {task.completed && (
+                                    <button
+                                      type="button"
+                                      className="archive-task-button"
+                                      onClick={() => archiveTask(task.id)}
+                                    >
+                                      Archive
+                                    </button>
+                                  )}
 
                                   <button
                                     type="button"

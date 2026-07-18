@@ -9,15 +9,19 @@ create table public.tasks (
   reward integer not null default 5,
   due_date timestamptz,
   completed_at timestamptz,
+  archived boolean not null default false,
+  archived_at timestamptz,
   created_at timestamptz not null default now()
 );
 alter table public.tasks enable row level security;
 create policy "Owners manage their tasks" on public.tasks
   for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
--- Run these two if the table already existed before due_date/completed_at were added:
+-- Run these if the table already existed before these columns were added:
 -- alter table public.tasks add column if not exists due_date timestamptz;
 -- alter table public.tasks add column if not exists completed_at timestamptz;
+-- alter table public.tasks add column if not exists archived boolean not null default false;
+-- alter table public.tasks add column if not exists archived_at timestamptz;
 
 create table public.spend_items (
   id bigint generated always as identity primary key,

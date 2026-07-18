@@ -31,15 +31,17 @@ function RewardWidgetPage() {
 
   const goalTitle = (goalId) => goals.find((goal) => goal.id === goalId)?.title
 
+  const visibleTasks = useMemo(() => tasks.filter((task) => !task.archived), [tasks])
+
   const completedCount = useMemo(
-    () => tasks.filter((task) => task.completed).length,
-    [tasks],
+    () => visibleTasks.filter((task) => task.completed).length,
+    [visibleTasks],
   )
   const totalPoints = useMemo(
-    () => tasks.filter((task) => task.completed).reduce((sum, task) => sum + task.reward, 0),
-    [tasks],
+    () => visibleTasks.filter((task) => task.completed).reduce((sum, task) => sum + task.reward, 0),
+    [visibleTasks],
   )
-  const maxPoints = useMemo(() => tasks.reduce((sum, task) => sum + task.reward, 0), [tasks])
+  const maxPoints = useMemo(() => visibleTasks.reduce((sum, task) => sum + task.reward, 0), [visibleTasks])
   const progress = maxPoints ? Math.round((totalPoints / maxPoints) * 100) : 0
 
   const handleAddTask = (event) => {
@@ -79,6 +81,10 @@ function RewardWidgetPage() {
 
   const renameTask = (id, title) => {
     updateRow(id, { title })
+  }
+
+  const archiveTask = (id) => {
+    updateRow(id, { archived: true, archived_at: new Date().toISOString() })
   }
 
   const deleteTask = (id) => {
@@ -148,7 +154,7 @@ function RewardWidgetPage() {
           <article className="stat-card">
             <span className="stat-label">Done</span>
             <strong>
-              {completedCount}/{tasks.length}
+              {completedCount}/{visibleTasks.length}
             </strong>
           </article>
         </div>
@@ -205,7 +211,7 @@ function RewardWidgetPage() {
           <p className="subtitle">Loading tasks…</p>
         ) : (
           <ul className="task-list">
-            {tasks.map((task) => {
+            {visibleTasks.map((task) => {
               const isExpanded = expandedIds.has(task.id)
 
               return (
@@ -318,6 +324,15 @@ function RewardWidgetPage() {
                           ))}
                         </select>
                       </label>
+                      {task.completed && (
+                        <button
+                          type="button"
+                          className="archive-task-button"
+                          onClick={() => archiveTask(task.id)}
+                        >
+                          Archive
+                        </button>
+                      )}
                       <button
                         type="button"
                         className="delete-task-button"
