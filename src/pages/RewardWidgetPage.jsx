@@ -6,11 +6,25 @@ import EditableField from '../components/EditableField'
 
 const DEFAULT_TASK_REWARD = 5
 
+// datetime-local inputs work in local time with no timezone info, so we
+// convert to/from ISO ourselves when reading from or writing to the DB.
+function toLocalInputValue(iso) {
+  if (!iso) return ''
+  const date = new Date(iso)
+  const pad = (n) => String(n).padStart(2, '0')
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`
+}
+
+function toIsoFromLocalInput(value) {
+  return value ? new Date(value).toISOString() : null
+}
+
 function RewardWidgetPage() {
   const { rows: tasks, loading, insertRow, updateRow, removeRow } = useOwnedTable('tasks')
   const { rows: goals } = useOwnedTable('goals')
   const [draft, setDraft] = useState('')
   const [draftReward, setDraftReward] = useState(DEFAULT_TASK_REWARD)
+  const [draftDueDate, setDraftDueDate] = useState('')
   const [draftGoalId, setDraftGoalId] = useState('')
   const [expandedIds, setExpandedIds] = useState(() => new Set())
   const { balance, earn, spend } = useBalance()
@@ -37,10 +51,12 @@ function RewardWidgetPage() {
       title,
       completed: false,
       reward: Math.max(0, Number(draftReward) || 0),
+      due_date: toIsoFromLocalInput(draftDueDate),
       goal_id: draftGoalId ? Number(draftGoalId) : null,
     })
     setDraft('')
     setDraftReward(DEFAULT_TASK_REWARD)
+    setDraftDueDate('')
     setDraftGoalId('')
   }
 
@@ -54,11 +70,11 @@ function RewardWidgetPage() {
       spend(task.reward)
     }
 
-    updateRow(id, { completed })
+    updateRow(id, { completed, completed_at: completed ? new Date().toISOString() : null })
   }
 
   const resetTask = (id) => {
-    updateRow(id, { completed: false })
+    updateRow(id, { completed: false, completed_at: null })
   }
 
   const renameTask = (id, title) => {
@@ -101,6 +117,13 @@ function RewardWidgetPage() {
   const updateGoal = (id, value) => {
     updateRow(id, { goal_id: value ? Number(value) : null })
   }
+
+  const updateDueDate = (id, value) => {
+    updateRow(id, { due_date: toIsoFromLocalInput(value) })
+  }
+
+  const isOverdue = (task) =>
+    !task.completed && task.due_date != null && new Date(task.due_date) < new Date()
 
   return (
     <main className="app-shell">
@@ -155,6 +178,13 @@ function RewardWidgetPage() {
             onChange={(event) => setDraftReward(event.target.value)}
             aria-label="Points for new task"
           />
+          <input
+            type="datetime-local"
+            className="task-form-due"
+            value={draftDueDate}
+            onChange={(event) => setDraftDueDate(event.target.value)}
+            aria-label="Due date and time for new task"
+          />
           <select
             className="task-form-goal"
             value={draftGoalId}
@@ -179,7 +209,10 @@ function RewardWidgetPage() {
               const isExpanded = expandedIds.has(task.id)
 
               return (
-                <li key={task.id} className={`task-item ${task.completed ? 'done' : ''}`}>
+                <li
+                  key={task.id}
+                  className={`task-item ${task.completed ? 'done' : ''} ${isOverdue(task) ? 'overdue' : ''}`}
+                >
                   <div
                     className="task-summary"
                     role="button"
@@ -227,6 +260,12 @@ function RewardWidgetPage() {
                         {task.completed ? 'Complete' : 'Incomplete'}
                       </button>
 
+                      {task.due_date != null && (
+                        <span className={`reward-badge ${isOverdue(task) ? 'overdue-badge' : ''}`}>
+                          Due {new Date(task.due_date).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}
+                        </span>
+                      )}
+
                       <span className="reward-badge">{task.reward} pts</span>
 
                       <span className="expand-indicator" aria-hidden="true">
@@ -253,6 +292,15 @@ function RewardWidgetPage() {
                           value={task.reward}
                           onCommit={(value) => updateReward(task.id, value)}
                           aria-label={`Points for ${task.title}`}
+                        />
+                      </label>
+                      <label className="task-detail-field task-detail-field-due">
+                        <span>Due</span>
+                        <EditableField
+                          type="datetime-local"
+                          value={toLocalInputValue(task.due_date)}
+                          onCommit={(value) => updateDueDate(task.id, value)}
+                          aria-label={`Due date and time for ${task.title}`}
                         />
                       </label>
                       <label className="task-detail-field">

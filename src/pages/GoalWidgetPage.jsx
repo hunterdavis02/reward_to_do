@@ -72,11 +72,11 @@ function GoalWidgetPage() {
       spend(task.reward)
     }
 
-    updateTask(id, { completed })
+    updateTask(id, { completed, completed_at: completed ? new Date().toISOString() : null })
   }
 
   const resetTask = (id) => {
-    updateTask(id, { completed: false })
+    updateTask(id, { completed: false, completed_at: null })
   }
 
   const deleteTask = (id) => {

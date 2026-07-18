@@ -79,6 +79,11 @@
   color: #fff;
 }
 
+.widget-card.archive {
+  background: linear-gradient(135deg, var(--color-archive-start) 0%, var(--color-archive-end) 100%);
+  color: #fff;
+}
+
 .widget-card h2 {
   margin: 0.2rem 0 0.3rem;
   font-size: 1.2rem;
@@ -203,6 +208,16 @@
   background: var(--color-surface);
   color: var(--color-text);
   text-align: center;
+}
+
+.task-form .task-form-due {
+  flex: none;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.8rem 0.9rem;
+  font: inherit;
+  background: var(--color-surface);
+  color: var(--color-text);
 }
 
 .task-form .task-form-goal {
@@ -442,6 +457,21 @@
 .task-detail-field-reward input {
   width: 5rem;
   text-align: center;
+}
+
+.task-detail-field-due {
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.overdue-badge {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.archive-completed-at {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
 }
 
 .delete-task-button {

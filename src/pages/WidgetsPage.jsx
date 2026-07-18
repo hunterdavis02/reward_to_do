@@ -36,6 +36,15 @@ function WidgetsPage() {
           </div>
           <span className="widget-arrow">Open →</span>
         </Link>
+
+        <Link to="/widgets/archive" className="widget-card archive">
+          <div>
+            <p className="widget-label">History</p>
+            <h2>Archive</h2>
+            <p>Review recently completed to-dos before they clear out.</p>
+          </div>
+          <span className="widget-arrow">Open →</span>
+        </Link>
       </section>
     </main>
   )
