@@ -138,13 +138,7 @@ function RewardWidgetPage() {
       </Link>
 
       <section className="hero-card compact">
-        <div>
-          <p className="eyebrow">To-Do widget</p>
-          <h1>Keep your day moving and earn points as you go.</h1>
-          <p className="subtitle">
-            Add simple tasks, complete them, and watch your reward balance grow.
-          </p>
-        </div>
+        <h1>To-Do</h1>
 
         <div className="stats-grid">
           <article className="stat-card">

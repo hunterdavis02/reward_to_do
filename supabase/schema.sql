@@ -43,6 +43,18 @@ alter table public.balances enable row level security;
 create policy "Owners manage their balance" on public.balances
   for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
+create table public.links (
+  id bigint generated always as identity primary key,
+  user_id uuid not null references auth.users (id) on delete cascade,
+  title text not null,
+  url text not null,
+  position integer not null default 0,
+  created_at timestamptz not null default now()
+);
+alter table public.links enable row level security;
+create policy "Owners manage their links" on public.links
+  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
 -- Atomic earn/spend: creates the row on first use, floors at 0 server-side
 create or replace function public.adjust_balance(delta integer)
 returns integer

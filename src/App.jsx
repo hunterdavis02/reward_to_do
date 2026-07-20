@@ -5,6 +5,7 @@ import RewardWidgetPage from './pages/RewardWidgetPage'
 import SpendWidgetPage from './pages/SpendWidgetPage'
 import GoalWidgetPage from './pages/GoalWidgetPage'
 import ArchiveWidgetPage from './pages/ArchiveWidgetPage'
+import LinksWidgetPage from './pages/LinksWidgetPage'
 import LoginPage from './pages/LoginPage'
 import { useAuth } from './auth/useAuth'
 import './App.css'
@@ -25,6 +26,7 @@ function App() {
         <Route path="/widgets/spend-points" element={<SpendWidgetPage />} />
         <Route path="/widgets/goals" element={<GoalWidgetPage />} />
         <Route path="/widgets/archive" element={<ArchiveWidgetPage />} />
+        <Route path="/widgets/links" element={<LinksWidgetPage />} />
       </Routes>
     </>
   )

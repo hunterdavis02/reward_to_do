@@ -42,22 +42,8 @@ function ArchiveWidgetPage() {
         ← Back to widgets
       </Link>
 
-      <section className="hero-card compact">
-        <div>
-          <p className="eyebrow">Archive widget</p>
-          <h1>See what you've tucked away.</h1>
-          <p className="subtitle">
-            Archive a completed to-do to get it out of your daily list. It stays here for a
-            while, then clears out automatically.
-          </p>
-        </div>
-
-        <div className="stats-grid">
-          <article className="stat-card">
-            <span className="stat-label">Archived</span>
-            <strong>{archivedTasks.length}</strong>
-          </article>
-        </div>
+      <section className="hero-card">
+        <h1>Archive</h1>
       </section>
 
       <section className="panel">

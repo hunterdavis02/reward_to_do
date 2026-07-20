@@ -4,9 +4,7 @@ function WidgetsPage() {
   return (
     <main className="app-shell">
       <section className="hero-card">
-        <p className="eyebrow">Widgets</p>
-        <h1>Your widgets</h1>
-        <p className="subtitle">Pick a widget below to open it.</p>
+        <h1>Widgets</h1>
       </section>
 
       <section className="widget-grid">
@@ -42,6 +40,15 @@ function WidgetsPage() {
             <p className="widget-label">History</p>
             <h2>Archive</h2>
             <p>Review recently completed to-dos before they clear out.</p>
+          </div>
+          <span className="widget-arrow">Open →</span>
+        </Link>
+
+        <Link to="/widgets/links" className="widget-card links">
+          <div>
+            <p className="widget-label">Quick access</p>
+            <h2>Links</h2>
+            <p>Keep your important links in one place, sorted your way.</p>
           </div>
           <span className="widget-arrow">Open →</span>
         </Link>

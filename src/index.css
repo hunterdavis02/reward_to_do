@@ -48,6 +48,8 @@
   --color-goals-end: #7b0436;
   --color-archive-start: #0891b2;
   --color-archive-end: #1e3a8a;
+  --color-links-start: #16a34a;
+  --color-links-end: #0d9488;
 }
 
 /* Per-widget color identity: override the accent tokens within a themed
@@ -68,6 +70,12 @@
 .theme-archive {
   --color-accent: var(--color-archive-start);
   --color-accent-secondary: var(--color-archive-end);
+  --color-accent-contrast: #fff;
+}
+
+.theme-links {
+  --color-accent: var(--color-links-start);
+  --color-accent-secondary: var(--color-links-end);
   --color-accent-contrast: #fff;
 }
 

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useBalance } from '../balance/useBalance'
 import { useOwnedTable } from '../lib/useOwnedTable'
@@ -12,11 +12,6 @@ function SpendWidgetPage() {
   const [draftCost, setDraftCost] = useState(DEFAULT_ITEM_COST)
   const [expandedIds, setExpandedIds] = useState(() => new Set())
   const { balance, earn, spend } = useBalance()
-
-  const redeemedCount = useMemo(
-    () => items.filter((item) => item.redeemed).length,
-    [items],
-  )
 
   const handleAddItem = (event) => {
     event.preventDefault()
@@ -93,27 +88,8 @@ function SpendWidgetPage() {
         ← Back to widgets
       </Link>
 
-      <section className="hero-card compact">
-        <div>
-          <p className="eyebrow">Spend widget</p>
-          <h1>Redeem your points for things you enjoy.</h1>
-          <p className="subtitle">
-            Add rewards, set what they cost, and redeem them as your balance allows.
-          </p>
-        </div>
-
-        <div className="stats-grid">
-          <article className="stat-card">
-            <span className="stat-label">Balance</span>
-            <strong>{balance} pts</strong>
-          </article>
-          <article className="stat-card">
-            <span className="stat-label">Redeemed</span>
-            <strong>
-              {redeemedCount}/{items.length}
-            </strong>
-          </article>
-        </div>
+      <section className="hero-card">
+        <h1>Spend Points</h1>
       </section>
 
       <section className="panel">

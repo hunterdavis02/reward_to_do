@@ -26,13 +26,9 @@
   align-items: center;
 }
 
-.eyebrow {
-  margin: 0 0 0.5rem;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+.hero-card h1 {
   color: var(--color-accent);
+  margin: 0;
 }
 
 .subtitle {
@@ -81,6 +77,11 @@
 
 .widget-card.archive {
   background: linear-gradient(135deg, var(--color-archive-start) 0%, var(--color-archive-end) 100%);
+  color: #fff;
+}
+
+.widget-card.links {
+  background: linear-gradient(135deg, var(--color-links-start) 0%, var(--color-links-end) 100%);
   color: #fff;
 }
 
@@ -504,6 +505,107 @@
   border: 1px solid var(--color-border);
 }
 
+.link-item {
+  padding: 0;
+}
+
+.link-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+}
+
+.link-item.dragging {
+  opacity: 0.4;
+}
+
+.link-item.drag-over {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent) inset;
+}
+
+.link-drag-handle {
+  flex: none;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.3rem;
+  cursor: grab;
+  touch-action: none;
+}
+
+.link-drag-handle:active {
+  cursor: grabbing;
+}
+
+.reorder-buttons {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.reorder-buttons button {
+  width: 1.6rem;
+  height: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  border-radius: 4px;
+  font-size: 0.65rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.reorder-buttons button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.link-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  cursor: pointer;
+}
+
+.link-title {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link-title:hover {
+  text-decoration: underline;
+}
+
+.link-url {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link-summary-controls {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 @media (max-width: 760px) {
   .app-shell {
     padding: 1rem;
@@ -532,6 +634,10 @@
   }
 
   .task-summary-controls {
+    flex-wrap: wrap;
+  }
+
+  .link-summary {
     flex-wrap: wrap;
   }
 }

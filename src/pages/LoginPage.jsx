@@ -40,11 +40,7 @@ function LoginPage() {
   return (
     <main className="app-shell">
       <section className="hero-card">
-        <p className="eyebrow">Reward To-Do</p>
         <h1>{mode === 'sign-in' ? 'Sign in to your account' : 'Create an account'}</h1>
-        <p className="subtitle">
-          Your tasks, rewards, and balance sync across every device you sign in on.
-        </p>
       </section>
 
       <section className="panel">

@@ -11,11 +11,6 @@ function GoalWidgetPage() {
   const [draft, setDraft] = useState('')
   const [expandedIds, setExpandedIds] = useState(() => new Set())
 
-  const completedCount = useMemo(
-    () => goals.filter((goal) => goal.completed).length,
-    [goals],
-  )
-
   const xpByGoal = useMemo(() => {
     const xp = new Map()
     tasks.forEach((task) => {
@@ -97,27 +92,8 @@ function GoalWidgetPage() {
         ← Back to widgets
       </Link>
 
-      <section className="hero-card compact">
-        <div>
-          <p className="eyebrow">Goal widget</p>
-          <h1>Set the goals your tasks are working toward.</h1>
-          <p className="subtitle">
-            Add an overarching goal to give your tasks something to build up to.
-          </p>
-        </div>
-
-        <div className="stats-grid">
-          <article className="stat-card">
-            <span className="stat-label">Goals</span>
-            <strong>{goals.length}</strong>
-          </article>
-          <article className="stat-card">
-            <span className="stat-label">Achieved</span>
-            <strong>
-              {completedCount}/{goals.length}
-            </strong>
-          </article>
-        </div>
+      <section className="hero-card">
+        <h1>Goals</h1>
       </section>
 
       <section className="panel">
